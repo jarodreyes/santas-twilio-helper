@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require "santas_twilio_helper"
+
+SantasTwilioHelper::Cli::Application.start(ARGV)
