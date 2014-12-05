@@ -47,6 +47,24 @@ module SantasTwilioHelper
         def write_file(data_hash)
           create_file "santarc.json", "// Your Santas Helper configuration.\n #{data_hash.to_json}", :force => true
         end
+
+        def sendMessage(msg)
+          file = File.read('santarc.json')
+          data_hash = JSON.parse(file)
+          phone = data_hash['telephone']
+          children = english_join(data_hash['children'])
+          msg = "Hi #{children}. #{msg} - the elves"
+          message = @@client.account.messages.create(
+            :from => @@twilio_number,
+            :to => phone,
+            :body => msg
+          )
+        end
+
+        def english_join(array = nil)
+          return array.to_s if array.nil? or array.length <= 1
+          array[0..-2].join(", ") + " and " + array[-1]
+        end
       }
       
       desc 'add_child NAME', 'Add child to Santas registry'
@@ -64,22 +82,33 @@ module SantasTwilioHelper
 
       desc 'ping', 'See where Santa is right now'
       def ping
-        puts "#{Paint['Santa', :red]} is still in the Northpole, we'll keep you aware of his movements. -the elves"
+        file = File.read('messages.json')
+        messages = JSON.parse(file)
+        santaMs = messages['SANTA_SNIPPETS']
+        a = rand(0..(santaMs.length-1))
+        msg = santaMs[a]
+        sendMessage(msg)
       end
 
-      desc 'telegraph MSG', "Send a text message as Santa's helper to the phone we have listed"
+      desc 'telegraph MSG', "Send a text message as Santa's helper."
+      
+      # Longer description when `santa help telegraph` is called.
+      long_desc <<-LONGDESC
+      `santa telegraph` will send any message to the phone number you entered on setup.
+
+      "You can optionally specify a second parameter, which will insert a time delay (in seconds) so that your messages can be sent while you or the phone are within eyesight of your little ones."
+
+      #{Paint["> $ santa telegraph 'Santa was wondering if Anna likes red things?' --delay 200", "#55C4C2"]}
+      LONGDESC
+
+      option :delay, :type => :numeric, :default => 0
       def telegraph(message)
-        file = File.read('santarc.json')
-        data_hash = JSON.parse(file)
-        phone = data_hash['telephone']
-
-        message = @@client.account.messages.create(
-          :from => @@twilio_number,
-          :to => phone,
-          :body => message
-        )
-
-        puts "#{Paint['Santa', :red]} has approved that communication and we'll forward to the appropriate phone soon. -the elves"
+        puts "delay: #{options[:delay]}" if options[:delay]
+        sleep(options[:delay])
+        puts Paint["sending message as SMS...", :red]
+        sendMessage(message)
+        puts "message sent: #{message}"
+        puts "#{Paint["Santa has approved that communication and we'll forward to the appropriate phone soon. -the elves", :white]}"
       end
 
     end
