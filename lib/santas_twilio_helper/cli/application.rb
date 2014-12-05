@@ -15,7 +15,6 @@ module SantasTwilioHelper
 
       desc 'begin', 'Register yourself as one of Santas helpers'
       def begin
-        invoke :setup
         say("#{Paint["Hi I'm one of Santa's Twilio Elves, and I'm about to deputize you as an ambassador to Santa. To get started I need your name.", :red]}")
         santa_helper = ask("Parent Name: ")
 
@@ -59,6 +58,7 @@ module SantasTwilioHelper
             :to => phone,
             :body => msg
           )
+          puts "message sent: #{msg}"
         end
 
         def english_join(array = nil)
@@ -87,11 +87,12 @@ module SantasTwilioHelper
         santaMs = messages['SANTA_SNIPPETS']
         a = rand(0..(santaMs.length-1))
         msg = santaMs[a]
+        puts "sending message..."
         sendMessage(msg)
       end
 
       desc 'telegraph MSG', "Send a text message as Santa's helper."
-      
+
       # Longer description when `santa help telegraph` is called.
       long_desc <<-LONGDESC
       `santa telegraph` will send any message to the phone number you entered on setup.
@@ -107,7 +108,6 @@ module SantasTwilioHelper
         sleep(options[:delay])
         puts Paint["sending message as SMS...", :red]
         sendMessage(message)
-        puts "message sent: #{message}"
         puts "#{Paint["Santa has approved that communication and we'll forward to the appropriate phone soon. -the elves", :white]}"
       end
 
