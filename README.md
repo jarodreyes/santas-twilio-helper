@@ -1,6 +1,6 @@
-# SantasTwilioHelper
+# Santas Twilio Helper
 
-TODO: Write a gem description
+This is a command-line tool that uses the command `santa` to interact with Santa's helpers in the north pole. This allows the festive parent to surprise their child by having Santa's elves send messages. This was built using Twilio's  REST API.
 
 ## Installation
 
@@ -20,7 +20,12 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Type `santa help` to see the full list of commands. When you are in a private place without little ones around, type `santa begin` to kick off the setup of the tool.
+
+-- `begin` registers one child name, adds a phone number and stores your zipcode for Dec. 25 fun. This is all stored locally on your machine in santarc.json.
+-- `ping` sends a random msg from the northpole. (eg: messages.json)
+-- `telegraph` allows you to send a custom message from the northpole.
+-- `add_child` allows you to add another child name.
 
 ## Contributing
 
