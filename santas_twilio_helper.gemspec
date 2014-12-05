@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["jreyes@twilio.com"]
   spec.summary       = 'all the tools santas little helper might need. Powered by Twilio.'
   spec.description   = 'All the tools Santas Helper might need. Send MMS, check Santas progress, register childs name, etc.'
-  spec.homepage      = "https://github.com/jarodreyes/star-trek-twilio"
+  spec.homepage      = "https://github.com/jarodreyes/santas-twilio-helper"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
