@@ -4,17 +4,7 @@ This is a command-line tool that uses the command `santa` to interact with Santa
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'santas_twilio_helper'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
+To install the `santa` command-line tool type:
 
     $ gem install santas_twilio_helper
 
@@ -29,7 +19,7 @@ Type `santa help` to see the full list of commands. When you are in a private pl
 
 ## Contributing
 
-1. Fork it ( https://github.com/[my-github-username]/santas_twilio_helper/fork )
+1. Fork it ( https://github.com/jarodreyes/santas_twilio_helper/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
